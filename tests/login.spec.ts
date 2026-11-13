@@ -1,8 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../Pages/LoginPage';
+import { chromium } from '@playwright/test';
 
-test('User can login successfully', async ({ page }) => {
 
+
+
+test('User can login successfully', async () => {
+ // Connect to the MCP server
+ const browser = await chromium.connect({ wsEndpoint: 'ws://localhost:62762/' });
+
+ // Create a new browser context and page
+ const context = await browser.newContext();
+ const page = await context.newPage();
     // Initialize Page Object
     const loginPage = new LoginPage(page);
 
